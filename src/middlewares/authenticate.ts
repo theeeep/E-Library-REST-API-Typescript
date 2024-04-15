@@ -13,9 +13,10 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
   if (!token) {
     return next(createHttpError(401, "Authorization token is required."));
   }
+  console.log("Token:", token);
 
   try {
-    const parsedToken = token.split("")[1];
+    const parsedToken = token.split("Bearer ")[1];
     const decoded = verify(parsedToken, config.jwtSecret as string);
     const _req = req as AuthRequest;
 
